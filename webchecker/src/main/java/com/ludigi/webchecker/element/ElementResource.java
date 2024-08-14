@@ -1,9 +1,12 @@
 package com.ludigi.webchecker.element;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.UncheckedIOException;
 import java.util.UUID;
 
 @RestController
@@ -22,9 +25,8 @@ class ElementResource {
                         .path("/{id}")
                         .buildAndExpand(id)
                         .toUri())
-                .map(ResponseEntity::created)
-                .orElse(ResponseEntity.ok())
-                .build();
+                .map(location -> ResponseEntity.created(location).build())
+                .orElse(ResponseEntity.noContent().build());
     }
 
     @GetMapping("/api/elements/{id}")
@@ -32,5 +34,13 @@ class ElementResource {
         return elementService.findElement(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @ExceptionHandler(UncheckedIOException.class)
+    ResponseEntity<ProblemDetail> handleIOException(UncheckedIOException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.OK);
+        problemDetail.setDetail(exception.getMessage());
+        return ResponseEntity.ok()
+                .body(problemDetail);
     }
 }
