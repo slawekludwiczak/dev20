@@ -7,6 +7,6 @@ Content-Type: application/json
   "selector": "h1"
 }
 
-### GET element by id
-GET localhost:8080/api/elements/
+### Find element by id
+GET localhost:8080/api/elements/{{$random.uuid}}
 Accept: application/json
