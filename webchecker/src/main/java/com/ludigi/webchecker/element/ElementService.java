@@ -16,10 +16,12 @@ import java.util.UUID;
 class ElementService {
     private final ElementDataRepository elementDataRepository;
     private final Clock clock;
+    private final IdGenerator idGenerator;
 
-    ElementService(ElementDataRepository elementDataRepository, Clock clock) {
+    ElementService(ElementDataRepository elementDataRepository, IdGenerator idGenerator, Clock clock) {
         this.elementDataRepository = elementDataRepository;
         this.clock = clock;
+        this.idGenerator = idGenerator;
     }
 
     Optional<UUID> fetchElement(ElementRequest request) {
@@ -34,7 +36,7 @@ class ElementService {
             return Optional.empty();
         }
         String elementValue = elements.text();
-        UUID id = UUID.randomUUID();
+        UUID id = idGenerator.nextId();
         ElementData elementData = new ElementData(
                 id,
                 request.url(),

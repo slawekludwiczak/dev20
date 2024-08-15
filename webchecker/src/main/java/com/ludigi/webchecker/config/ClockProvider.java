@@ -6,8 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import java.time.Clock;
 
 @Configuration
-class ClockConfig {
-
+class ClockProvider {
     @Bean
     Clock clock() {
         return Clock.systemDefaultZone();
