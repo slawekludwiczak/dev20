@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,9 +15,11 @@ import java.util.UUID;
 @Service
 class ElementService {
     private final ElementDataRepository elementDataRepository;
+    private final Clock clock;
 
-    ElementService(ElementDataRepository elementDataRepository) {
+    ElementService(ElementDataRepository elementDataRepository, Clock clock) {
         this.elementDataRepository = elementDataRepository;
+        this.clock = clock;
     }
 
     Optional<UUID> fetchElement(ElementRequest request) {
@@ -37,7 +40,7 @@ class ElementService {
                 request.url(),
                 request.selector(),
                 elementValue,
-                LocalDateTime.now());
+                LocalDateTime.now(clock));
         elementDataRepository.save(elementData);
         return Optional.of(id);
     }
