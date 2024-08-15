@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -68,5 +69,18 @@ class ElementData {
 
     public void setFetchTime(LocalDateTime fetchTime) {
         this.fetchTime = fetchTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ElementData that = (ElementData) o;
+        return Objects.equals(id, that.id) && Objects.equals(url, that.url) && Objects.equals(selector, that.selector) && Objects.equals(value, that.value) && Objects.equals(fetchTime, that.fetchTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, url, selector, value, fetchTime);
     }
 }
