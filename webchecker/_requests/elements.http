@@ -7,6 +7,10 @@ Content-Type: application/json
   "selector": "h1"
 }
 
-### Find element by id
+### Find existing element by id
+GET localhost:8080/api/elements/30D550D1-FA96-4292-A255-B7EC402276B2
+Accept: application/json
+
+### Find non-existing element by id
 GET localhost:8080/api/elements/{{$random.uuid}}
 Accept: application/json
