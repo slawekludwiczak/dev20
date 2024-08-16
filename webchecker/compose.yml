@@ -7,9 +7,13 @@ services:
       - "MYSQL_DATABASE=${DB_NAME}"
     volumes:
       - mysqldb:/var/lib/mysql
+    ports:
+      - "${DB_PORT}"
     healthcheck:
       test: mysqladmin ping --protocol tcp
       interval: 5s
       timeout: 1s
       retries: 3
       start_period: 5s
+volumes:
+  mysqldb:
