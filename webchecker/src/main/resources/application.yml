@@ -1,3 +1,12 @@
 spring:
   application:
     name: webchecker
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  config:
+    import: optional:file:.env[.properties]
