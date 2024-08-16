@@ -3,10 +3,16 @@ spring:
     name: webchecker
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
+    properties:
+      hibernate:
+        type:
+          preferred_uuid_jdbc_type: CHAR
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   config:
     import: optional:file:.env[.properties]
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
