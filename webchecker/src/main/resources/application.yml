@@ -16,3 +16,4 @@ spring:
     import: optional:file:.env[.properties]
   liquibase:
     change-log: classpath:db/changelog/changelog-master.xml
+    contexts: default
