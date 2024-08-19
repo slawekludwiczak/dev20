@@ -8,7 +8,7 @@ services:
     volumes:
       - mysqldb:/var/lib/mysql
     ports:
-      - "${DB_PORT}"
+      - "${DB_PORT}:${DB_PORT}"
     healthcheck:
       test: mysqladmin ping --protocol tcp
       interval: 5s
