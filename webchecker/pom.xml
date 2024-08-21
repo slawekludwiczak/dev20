@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.ludigi</groupId>
     <artifactId>webchecker</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>webchecker</name>
     <description>webchecker</description>
     <url/>
@@ -79,6 +79,22 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build-image</goal>
+                        </goals>
+                        <configuration>
+                            <image>
+                                <name>ludigi/${project.artifactId}</name>
+                                <tags>
+                                    ludigi/${project.artifactId}:${project.version}
+                                </tags>
+                            </image>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
